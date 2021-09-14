@@ -1,48 +1,86 @@
 <!DOCTYPE html>
 <html ng-app="listaTelefonica" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista Telefonica</title>
+    <!-- link bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <!-- Link angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!-- Link Css -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Lista Telefonica </title>
-	<!-- link bootstrap -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-
-	<!-- Link angular -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-	<!-- Link Css -->
-	<link rel="stylesheet" href="style.css">
-
-</head>
-
-<body ng-controller="listaTelefonicaCtrl">
-	<div class="jumbotron">
-		<h3 class="title">{{app}}</h3>
-		<table class="table table-striped">
-			<tr>
-				<th><b>Nome</b> </th>
-				<th><b>Telefone</b></th>
-				<!-- <th><b>Nota 1</b></th>
-				<th><b>Nota 2</b></th>
-				<th><b>Nota 3</b></th>
-				<th><b>Média</b></th> -->
-			</tr>
-			<tr ng-repeat=" contato in contatos">
-				<td>{{contato.nome}}</td>
-				<td>{{contato.telefone}}</td>
-			</tr>
-		</table>
-
-		<hr>
-		<input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome">
-		<input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone">
-		<button ng-click="addContato(contato)" class="btn btn-light btn-block">Adicionar Contatos</button>
-		{{contato}}
-	</div>
-
-	<script src="./main.js"></script>
-</body>
-
+  <body ng-controller="listaTelefonicaCtrl">
+    <div class="jumbotron">
+      <h3 class="title">{{app}}</h3>
+      <table ng-show="contatos.length > 0" class="table">
+        <tr>
+          <th></th>
+          <th><b>Nome</b></th>
+          <th><b>Telefone</b></th>
+          <th><b>operadora</b></th>
+        </tr>
+        <tr
+          ng-class="{'selecionado negrito':contato.selecionado}"
+          ng-repeat="contato in contatos "
+        >
+          <!-- <tr ng-class=[classe1,classe2] ng-repeat=" contato in contatos "> -->
+          <td><input type="checkbox" ng-model="contato.selecionado" /></td>
+          <td>{{contato.nome | uppercase }}</td>
+          <td>{{contato.telefone}}</td>
+          <td>{{contato.operadora.nome}}</td>
+          <td>
+            <div
+              style="width: 20px; height: 20px"
+              ng-style="{'background-color':contato.cor}"
+            ></div>
+          </td>
+        </tr>
+      </table>
+      <hr />
+      <input
+        class="form-control"
+        type="text"
+        ng-model="contato.nome"
+        placeholder="Nome"
+      />
+      <input
+        class="form-control"
+        type="text"
+        ng-model="contato.telefone"
+        placeholder="Telefone"
+      />
+      <select
+        class="form-control"
+        ng-model="contato.operadora"
+        ng-options="operadora.nome for operadora in operadoras"
+      >
+        <option value="">Selecione uma operadora</option>
+      </select>
+      <button
+        ng-click="addContato(contato)"
+        ng-disabled="!contato.nome || !contato.telefone"
+        class="btn btn-light btn-block"
+      >
+        Adicionar Contatos
+      </button>
+      <button
+        ng-click="apagarContatos(contatos)"
+        ng-show="isContatoSelecionado(contatos)"
+        class="btn btn-light btn-block"
+      >
+        Delete Contatos
+      </button>
+    </div>
+    <div ng-include="'footer.html'"></div>
+    <script src="./main.js"></script>
+  </body>
 </html>
