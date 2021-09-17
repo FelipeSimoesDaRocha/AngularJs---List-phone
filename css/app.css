@@ -1,0 +1,53 @@
+/* Global */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+body{
+  background: gainsboro;
+}
+:root {
+  --cor1: #a52a2a;
+  --cor1Active: rgb(255, 235, 205);
+  
+}
+/* /////////////////////////////////////////////////////////////////////////////////// */
+
+.jumbotron {
+  width: 600px;
+  text-align: center;
+  margin-top: 20vh;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--cor1Active);
+  box-shadow: 0 0 20px 5px #000;
+  border-radius: 25px;
+  
+}
+.table{
+  margin-top: 20px;
+
+
+}
+.form-control{
+  margin-bottom: 5px;
+  
+}
+.btn{
+  margin-top:20px;
+  margin-bottom: 20px;
+  background-color: var(--cor1);
+  color: beige;
+}
+.title{
+  color: var(--cor1);
+  padding-top: 20px;
+}
+.selecionado{
+  background-color: var(--cor1);
+}
+.negrito{
+  font-weight:bol ;
+}
+ 
